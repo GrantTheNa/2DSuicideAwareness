@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BulletScript : MonoBehaviour {
-	public float lifetime = 2.0f;
+	public float lifetime = 0.25f;
 	// Use this for initialization
 	void Start () {
 	
@@ -29,7 +29,7 @@ public class BulletScript : MonoBehaviour {
 	//when the bullet is first activated this awake function gets called
 	void  Awake ()
 	{
-		//destroy the bullet after 2 seconds
+		//destroy the bullet after 0.1 seconds
 		Destroy(gameObject, lifetime);
 	}
 }
