@@ -9,7 +9,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public float speed = 6;
 	public float jumpSpeed = 8;
-	public float gravity = 20;
+	public float gravity = 10;
 
 	public float sprintMultiplier = 2;
 
@@ -28,12 +28,14 @@ public class PlayerScript : MonoBehaviour {
 	{
 
 		characterController = GetComponent<CharacterController>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(characterController.isGrounded)
+
+		if (characterController.isGrounded)
 		{
 			movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 			movementVector *= speed;
