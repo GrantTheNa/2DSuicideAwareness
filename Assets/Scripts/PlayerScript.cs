@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour {
 
@@ -35,26 +36,25 @@ public class PlayerScript : MonoBehaviour {
 	void Update () 
 	{
 
+		movementVector.x = Input.GetAxis("Horizontal");
+		movementVector.x *= speed;
+
+		if (Input.GetButton("Sprint"))
+		{
+			//multiply the movement vector with the sprint multiplier
+			movementVector.x *= sprintMultiplier;
+		}
+
 		if (characterController.isGrounded)
 		{
-			movementVector = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-			movementVector *= speed;
-
-			animator.SetFloat("Speed", Mathf.Abs(speed));
-
-			//if the player pushes jump
-			if (Input.GetButton("Jump"))
+			if (Input.GetButton("Jump")) //if the player pushes jump
 			{
 				movementVector.y = jumpSpeed;
 			}
 
+				//if the player pushes sprint (Note remember to add "Sprint" buttons to the InputManager ie: Edit->ProjectSettings->Input) 
 
-			//if the player pushes sprint (Note remember to add "Sprint" buttons to the InputManager ie: Edit->ProjectSettings->Input) 
-			if(Input.GetButton("Sprint"))
-			{
-				//multiply the movement vector with the sprint multiplier
-				movementVector *= sprintMultiplier;
-			}
+
 		}
 
 		//check if player health is low and set isDead value
@@ -68,8 +68,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		//if the player is within a ladder (if isOnLadder is true, they are within a ladder trigger)
-		if (isOnLadder) {
-			//enable vertical movement
+		if (isOnLadder) 
+		{
+		//enable vertical movement
 			movementVector.y = Input.GetAxis("Vertical");
 			movementVector.y *= speed;
 
@@ -77,8 +78,8 @@ public class PlayerScript : MonoBehaviour {
 			movementVector.x *= speed;
 		}
 
-		movementVector.y -= gravity * Time.deltaTime;
-		characterController.Move(movementVector * Time.deltaTime);
+	movementVector.y -= gravity * Time.deltaTime;
+	characterController.Move(movementVector * Time.deltaTime);
 	}
 
 	void OnTriggerEnter(Collider C)
