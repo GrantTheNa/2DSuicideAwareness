@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
 	{
 
 		characterController = GetComponent<CharacterController>();
-
+		animator.SetBool("Falling", true);
 	}
 	
 	// Update is called once per frame
@@ -39,6 +39,35 @@ public class PlayerScript : MonoBehaviour {
 		movementVector.x = Input.GetAxis("Horizontal");
 		movementVector.x *= speed;
 
+		if (Input.GetKeyDown(KeyCode.A))
+		{
+			transform.localScale = new Vector3(-1, 1, 1);
+			print("Running Left");
+			animator.SetBool("RunModeLeft", true);
+		}
+
+		if (Input.GetKeyDown(KeyCode.D))
+		{
+			transform.localScale = new Vector3(1, 1, 1);
+			print("Running Right");
+			animator.SetBool("RunMode", true);
+		}
+
+		//Is Running input down
+
+		// Stop Running Right
+		if (Input.GetKeyUp(KeyCode.D))
+		{
+				animator.SetBool("RunMode", false);
+		}
+
+		//Stop Running Left
+		if (Input.GetKeyUp(KeyCode.A))
+		{
+				animator.SetBool("RunModeLeft", false);
+		}
+
+
 		if (Input.GetButton("Sprint"))
 		{
 			//multiply the movement vector with the sprint multiplier
@@ -47,9 +76,13 @@ public class PlayerScript : MonoBehaviour {
 
 		if (characterController.isGrounded)
 		{
+			animator.SetBool("Falling", false);
+			animator.SetBool("Jump", false);
 			if (Input.GetButton("Jump")) //if the player pushes jump
 			{
 				movementVector.y = jumpSpeed;
+				animator.SetBool("Jump", true);
+				SoundManager.PlaySound("Jump");
 			}
 
 				//if the player pushes sprint (Note remember to add "Sprint" buttons to the InputManager ie: Edit->ProjectSettings->Input) 
