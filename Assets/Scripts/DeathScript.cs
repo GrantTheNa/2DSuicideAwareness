@@ -42,9 +42,10 @@ public class DeathScript : MonoBehaviour {
 				if(player.GetComponent<PlayerScript>().health <= 0)
 				{
 					//respawn, and reset player health
+					SoundManager.PlaySound("Splat");
 					player.GetComponent<PlayerScript>().isDead = false;
 					player.GetComponent<PlayerScript>().health = player.GetComponent<PlayerScript>().maxHealth;
-					player.transform.position = spawnPoint.transform.position;	
+					player.transform.position = spawnPoint.transform.position;
 				}
 			}
 		}

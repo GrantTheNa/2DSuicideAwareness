@@ -18,6 +18,7 @@ public class BulletScript : MonoBehaviour {
 		//check if the object it collides with has the tag "Shootable"
 		if(other.gameObject.tag == "Shootable"){
 			//destroy the shootable object
+			SoundManager.PlaySound("Destroy");
 			Destroy(other.gameObject);
 			//destroy the bullet
 			Destroy(gameObject);
